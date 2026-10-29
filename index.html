@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kimyo CHSB — 10-sinf</title>
+<style>
+:root{--blue:#2874d8;--blue2:#1959b5;--bg:#eef1fb;--card:#fff;--ink:#25324a;--muted:#68758b;--line:#e1e6f0}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif}
+.topbar{height:54px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 22px;gap:12px}
+.logo{font-weight:800;color:var(--blue);letter-spacing:.2px}.tag{font-size:12px;color:var(--muted);border-left:1px solid var(--line);padding-left:12px}
+.layout{display:grid;grid-template-columns:230px minmax(0,1fr);min-height:calc(100vh - 54px)}
+.sidebar{background:#f8f9fd;border-right:1px solid var(--line);padding:24px 16px}
+.back{color:var(--blue);font-size:14px;margin-bottom:22px}.side-title{font-weight:700;font-size:15px;margin-bottom:18px}.side-label{font-size:12px;color:var(--muted);margin-bottom:10px}
+.side-item{background:#e9efff;color:#214da8;border-radius:8px;padding:11px;font-size:13px;line-height:1.4}
+main{padding:28px 24px 40px;max-width:980px;width:100%;margin:0 auto}
+.card{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:22px 24px;box-shadow:0 3px 12px #27385b0b}
+.hero{text-align:center;margin-bottom:18px}.hero .student{font-size:14px;color:#56647c;margin-bottom:8px}.hero h1{font-size:21px;color:#2455b6;margin:0}
+.status{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:0 0 14px;color:var(--muted);font-size:13px}
+.timer{color:#2455b6;background:#f0f4ff;border-radius:8px;padding:9px 12px;font-weight:700}
+.question{min-height:300px}.qtop{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:20px;color:var(--muted);font-size:13px}
+.qnum{font-weight:700;color:#3b4a63}.points{background:#f4f6fa;padding:6px 9px;border-radius:6px}
+.qtext{font-size:19px;line-height:1.55;font-weight:600;margin:14px 0 22px}
+.options{display:grid;gap:10px}.option{display:flex;align-items:center;gap:12px;border:1px solid var(--line);padding:13px 14px;border-radius:9px;cursor:pointer;transition:.15s}
+.option:hover{border-color:#9bb7f0;background:#f9fbff}.option.selected{border-color:var(--blue);background:#edf4ff}.option input{accent-color:var(--blue)}
+.nav{display:flex;justify-content:center;align-items:center;gap:12px;margin:20px 0}.nav button,.modal button,.bottom-actions button{border:0;border-radius:8px;padding:11px 17px;font-size:14px;font-weight:700;cursor:pointer}
+.primary{background:var(--blue);color:white}.primary:hover{background:var(--blue2)}.secondary{background:#e6edfb;color:#2455b6}.secondary:disabled{opacity:.45;cursor:not-allowed}
+.page-count{font-size:14px;color:var(--muted);min-width:45px;text-align:center}.bottom-actions{display:flex;justify-content:flex-end;margin-top:14px}
+#result{display:none;margin-top:18px}.score{font-size:28px;font-weight:800;color:var(--blue);margin:8px 0}
+.review{padding:13px 0;border-top:1px solid var(--line);line-height:1.5}.right{color:#187647;font-weight:700}.wrong{color:#b42318;font-weight:700}.explain{color:var(--muted);font-size:14px;margin-top:5px}
+.modal-backdrop{position:fixed;inset:0;background:#202b4380;display:none;align-items:center;justify-content:center;padding:18px}.modal{background:#fff;border-radius:15px;padding:24px;max-width:420px;width:100%;box-shadow:0 16px 55px #14213d30}.modal h2{font-size:19px;margin:0 0 10px}.modal p{color:var(--muted);line-height:1.5}.modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:18px}
+.small{font-size:12px;color:var(--muted);text-align:center;line-height:1.5;margin-top:18px}
+@media(max-width:700px){.layout{grid-template-columns:1fr}.sidebar{display:none}main{padding:16px 12px 28px}.card{padding:18px}.qtext{font-size:17px}.topbar{padding:0 14px}}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="logo">KIMYO • CHSB</div><div class="tag">10-sinf • CHSB</div></div>
+<div class="layout">
+<aside class="sidebar">
+  <div class="back">‹ Bosh sahifaga</div>
+  <div class="side-title">Kimyo CHSB</div>
+  <div class="side-label">BO‘LIMLAR</div>
+  <div class="side-item">✎ &nbsp; 1. Kimyo CHSB — 10-sinf</div>
+</aside>
+<main>
+  <section class="card hero">
+    <div class="student">◉ &nbsp; O‘quvchi</div>
+    <h1>1. Kimyo CHSB — 10-sinf</h1>
+  </section>
+  <div class="status"><span id="progressText">1 / 10-savol</span><span class="timer">⏱ <span id="timer">15:00</span></span></div>
+  <section class="card question" id="questionCard"></section>
+  <div class="nav">
+    <button class="secondary" id="prevBtn">‹ Orqaga</button>
+    <span class="page-count" id="pageCount">1/10</span>
+    <button class="primary" id="nextBtn">Keyingi ›</button>
+  </div>
+  <div class="bottom-actions"><button class="primary" id="finishBtn">Testni yakunlash</button></div>
+  <section class="card" id="result"></section>
+  <p class="small">Bu mustaqil mashq sahifasi. Haqiqiy maktab platformasiga ulanmaydi va rasmiy imtihon nusxasi emas.</p>
+</main>
+</div>
+<div class="modal-backdrop" id="confirmModal">
+ <div class="modal">
+  <h2>Testni yakunlaysizmi?</h2>
+  <p>Javoblaringizni yakunlashdan oldin tekshirib chiqing. Yakunlaganingizdan so‘ng natija va izohlar ko‘rsatiladi.</p>
+  <div class="modal-actions"><button class="secondary" id="continueBtn">Testga qaytish</button><button class="primary" id="confirmFinishBtn">Yakunlash</button></div>
+ </div>
+</div>
+<script>
+const questions=[
+ {q:"Suvning kimyoviy formulasi qaysi?",a:["CO₂","H₂O","O₂","H₂"],c:1,e:"Suv formulasi H₂O."},
+ {q:"Kislorodning nisbiy atom massasi nechaga teng?",a:["8","16","32","2"],c:1,e:"Ar(O) = 16."},
+ {q:"NaCl moddasining nomini toping.",a:["Natriy karbonat","Natriy xlorid","Kalsiy xlorid","Natriy oksid"],c:1,e:"NaCl — natriy xlorid."},
+ {q:"H₂SO₄ tarkibida nechta kislorod atomi bor?",a:["1","2","4","6"],c:2,e:"O₄ belgisi 4 ta kislorod atomini bildiradi."},
+ {q:"Qaysi biri oddiy modda?",a:["H₂O","NaCl","O₂","CO₂"],c:2,e:"O₂ faqat kislorod atomlaridan tashkil topgan."},
+ {q:"Atom yadrosida qaysi zarrachalar joylashgan?",a:["Faqat elektronlar","Proton va neytronlar","Proton va elektronlar","Faqat neytronlar"],c:1,e:"Yadro proton va neytronlardan iborat."},
+ {q:"CO₂ ning nisbiy molekulyar massasini toping. Ar(C)=12, Ar(O)=16.",a:["28","32","44","48"],c:2,e:"Mr(CO₂) = 12 + 2·16 = 44."},
+ {q:"Kislotalar eritmada odatda qaysi ionni hosil qiladi?",a:["OH⁻","H⁺","Na⁺","Cl⁻"],c:1,e:"Kislotalar suvli eritmada H⁺ ionlarini hosil qiladi."},
+ {q:"Quyidagilardan qaysi biri asos hisoblanadi?",a:["HCl","NaOH","SO₂","CO₂"],c:1,e:"NaOH — natriy gidroksid, asos."},
+ {q:"Massa saqlanish qonuniga ko‘ra nima saqlanadi?",a:["Faqat hajm","Umumiy massa","Faqat rang","Har doim harorat"],c:1,e:"Yopiq sistemada reaksiya oldidan va keyin umumiy massa teng bo‘ladi."},
+ {q:"Davriy jadvalda elementlar asosan nimaga ko‘ra tartiblangan?",a:["Atom raqamiga","Rangiga","Zichligiga","Kashf etilgan yiliga"],c:0,e:"Elementlar atom raqami ortib borishiga ko‘ra joylashtirilgan."},
+ {q:"2H₂ + O₂ → 2H₂O tenglamasida O₂ oldidagi koeffitsiyent nechaga teng?",a:["1","2","3","4"],c:0,e:"Yozilmagan koeffitsiyent 1 ga teng."},
+ {q:"pH qiymati 7 dan kichik bo‘lgan eritma qanday muhitga ega?",a:["Ishqoriy","Neytral","Kislotali","Metallik"],c:2,e:"pH < 7 kislotali muhitni bildiradi."},
+ {q:"Temirning kimyoviy belgisi qaysi?",a:["Ir","Fe","F","T"],c:1,e:"Temir belgisi Fe."},
+ {q:"Bir mol modda tarkibida taxminan nechta zarracha bo‘ladi?",a:["6,02 × 10²³","3,00 × 10⁸","1,60 × 10⁻¹⁹","9,81"],c:0,e:"Avogadro doimiysi 6,02 × 10²³ mol⁻¹."},
+ {q:"MgO birikmasida magniy va kislorod atomlari nisbati qanday?",a:["1:1","1:2","2:1","2:3"],c:0,e:"MgO da atomlar nisbati 1:1."}
+];
+let current=0,seconds=900,finished=false,timerId;
+const card=document.getElementById("questionCard");
+function draw(){
+ const item=questions[current], chosen=document.querySelector(`input[name="q${current}"]:checked`);
+ card.innerHTML="";
+ const top=document.createElement("div");top.className="qtop";
+ const num=document.createElement("span");num.className="qnum";num.textContent=`${current+1}-savol`;
+ const pts=document.createElement("span");pts.className="points";pts.textContent="1 ball";
+ top.append(num,pts);
+ const text=document.createElement("div");text.className="qtext";text.textContent=item.q;
+ const opts=document.createElement("div");opts.className="options";
+ item.a.forEach((ans,j)=>{
+  const lab=document.createElement("label");lab.className="option"+(chosen&&Number(chosen.value)===j?" selected":"");
+  const inp=document.createElement("input");inp.type="radio";inp.name=`q${current}`;inp.value=j;inp.checked=!!chosen&&Number(chosen.value)===j;
+  inp.addEventListener("change",()=>{document.querySelectorAll(".option").forEach(x=>x.classList.remove("selected"));lab.classList.add("selected");updateCount()});
+  const span=document.createElement("span");span.textContent=`${"ABCD"[j]}. ${ans}`;
+  lab.append(inp,span);opts.append(lab);
+ });
+ card.append(top,text,opts);
+ document.getElementById("prevBtn").disabled=current===0;
+ document.getElementById("nextBtn").textContent=current===questions.length-1?"Oxirgi savol":"Keyingi ›";
+ document.getElementById("pageCount").textContent=`${current+1}/${questions.length}`;
+ document.getElementById("progressText").textContent=`${current+1} / ${questions.length}-savol`;
+}
+function updateCount(){
+ const count=questions.filter((_,i)=>document.querySelector(`input[name="q${i}"]:checked`)).length;
+ document.getElementById("progressText").textContent=`${current+1} / ${questions.length}-savol · Javob berildi: ${count}`;
+}
+function fmt(s){return `${String(Math.floor(s/60)).padStart(2,"0")}:${String(s%60).padStart(2,"0")}`}
+function finish(){
+ if(finished)return;finished=true;clearInterval(timerId);
+ let score=0;const result=document.getElementById("result");result.style.display="block";result.innerHTML="";
+ questions.forEach((item,i)=>{
+  const selected=document.querySelector(`input[name="q${i}"]:checked`),v=selected?Number(selected.value):-1,ok=v===item.c;if(ok)score++;
+  const div=document.createElement("div");div.className="review";
+  const title=document.createElement("div");title.textContent=`${i+1}. ${item.q}`;
+  const stat=document.createElement("div");stat.className=ok?"right":"wrong";stat.textContent=ok?"To‘g‘ri":"Noto‘g‘ri";
+  const your=document.createElement("div");your.textContent="Sizning javobingiz: "+(v<0?"Javob berilmagan":`${"ABCD"[v]}. ${item.a[v]}`);
+  const ans=document.createElement("div");ans.textContent=`To‘g‘ri javob: ${"ABCD"[item.c]}. ${item.a[item.c]}`;
+  const exp=document.createElement("div");exp.className="explain";exp.textContent=item.e;
+  div.append(title,stat,your,ans,exp);result.append(div);
+ });
+ const h=document.createElement("h2");h.textContent="Test natijasi";
+ const s=document.createElement("div");s.className="score";s.textContent=`${score}/16 ball · ${score*10}%`;
+ const msg=document.createElement("p");msg.textContent=score>=14?"A’lo natija!":score>=11?"Yaxshi natija. Xato qilingan mavzularni takrorlang.":"Mashq qilishda davom eting. Javoblar izohini o‘rganib chiqing.";
+ result.prepend(msg);result.prepend(s);result.prepend(h);
+ card.querySelectorAll("input").forEach(x=>x.disabled=true);
+ document.getElementById("prevBtn").disabled=true;document.getElementById("nextBtn").disabled=true;document.getElementById("finishBtn").disabled=true;
+ result.scrollIntoView({behavior:"smooth",block:"start"});
+}
+document.getElementById("prevBtn").onclick=()=>{if(current>0){current--;draw()}};
+document.getElementById("nextBtn").onclick=()=>{if(current<questions.length-1){current++;draw()}else document.getElementById("confirmModal").style.display="flex"};
+document.getElementById("finishBtn").onclick=()=>document.getElementById("confirmModal").style.display="flex";
+document.getElementById("continueBtn").onclick=()=>document.getElementById("confirmModal").style.display="none";
+document.getElementById("confirmFinishBtn").onclick=()=>{document.getElementById("confirmModal").style.display="none";finish()};
+timerId=setInterval(()=>{if(finished)return;seconds--;document.getElementById("timer").textContent=fmt(seconds);if(seconds<=0)finish()},1000);
+draw();
+</script>
+</body>
+</html>
